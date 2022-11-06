@@ -2,7 +2,8 @@
 
 #include <string>
 
-// Forward declare Position and Entity later
+class Position;
+class Entity;
 
 enum class MoveResult {
 	ALLOW,
@@ -17,7 +18,7 @@ private:
 public:
 	Tile();
 	
-	// virtual MoveResult checkMoveOnto
+	virtual MoveResult checkMoveOnto(Entity* entity, const Position& fromPos, const Position& tilePos) const = 0;
 
 	virtual bool isGoal() const = 0;
 
