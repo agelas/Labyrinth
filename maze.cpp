@@ -9,6 +9,12 @@ Maze::Maze(int width, int height) {
 	}
 }
 
+Maze::~Maze() {
+	for (int i = 0; i < width * height; i++) {
+		delete grid[i];
+	}
+}
+
 int Maze::getWidth() const {
 	return width;
 }
