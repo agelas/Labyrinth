@@ -1,5 +1,10 @@
 #pragma once
 
+#include "wall.h"
+#include "floor.h"
+#include "goal.h"
+#include <stdexcept>
+
 class Tile;
 
 // Singleton factory to create Tile objects
