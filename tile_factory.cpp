@@ -18,7 +18,6 @@ Tile* TileFactory::createFromChar(char c) {
 	case '<':
 		return new Goal();
 	default:
-		std::runtime_error("Not a valid tile character");
-		return nullptr;
+		throw std::runtime_error("Not a valid tile character");
 	}
 }
