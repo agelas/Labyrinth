@@ -9,6 +9,7 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 	filename = argv[1];
+	std::cout << filename << std::endl;
 	std::ifstream in(filename);
 
 	if (!in.is_open()) {
@@ -17,7 +18,12 @@ int main(int argc, char *argv[]) {
 	}
 
 	std::unique_ptr<Maze> maze = Maze::read(in);
+	
+	std::cout << maze.get()->getHeight() << std::endl;
+	std::cout << maze.get()->getWidth() << std::endl;
 
 	std::cout << "made a maze" << std::endl;
+
+	maze.get()->print();
 
 }

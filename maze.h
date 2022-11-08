@@ -30,6 +30,7 @@ public:
 	void setTile(const Position& pos, Tile* tile);
 	const Tile* getTile(const Position& pos) const;
 	static std::unique_ptr<Maze> read(std::istream& in);
+	void print() const;
 
 	~Maze();
 };

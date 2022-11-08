@@ -58,19 +58,31 @@ std::unique_ptr<Maze> Maze::read(std::istream& in) {
 	tf = TileFactory::getInstance();
 
 	for (int i = 0; i < h; i++) {
+		std::getline(in, line);
 		if ((int)line.length() != w) {
 			throw std::runtime_error("Invalid line length");
 		}
 
 		for (int j = 0; j < w; j++) {
-			t = line[i];
+			t = line[j];
 			Tile* tile = tf->createFromChar(t);
 			if (!(tile)) {
 				throw std::runtime_error("Invalid character");
 			}
-			const Position& pos = Position(i, j);
+			const Position& pos = Position(j, i);
 			maze->setTile(pos, tile);
 		}
 	}
 	return maze;
+}
+
+void Maze::print() const {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			Position p = Position(j, i);
+			const Tile* t = this->getTile(p);
+			std::cout << t->getGlyph();
+		}
+		std::cout << std::endl;
+	}
 }
