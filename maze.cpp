@@ -44,12 +44,17 @@ std::unique_ptr<Maze> Maze::read(std::istream& in) {
 	std::getline(in, line);
 	int ws = line.rfind(" "); // Dimensions should be seperated by a white space
 
-	if (ws == -1) { return NULL; } // If no white space then a dimension is missing and maze isn't valid
+	// If no white space then a dimension is missing and maze isn't valid
+	if (ws == -1) { 
+		throw std::runtime_error("Invalid maze read instructions");
+	} 
 
 	int w = stoi(line.substr(0, ws));
 	int h = stoi(line.substr(ws + 1));
 
-	if (w < 0 || h < 0) { return NULL; } // Maze dimensions can't be negative
+	if (w < 0 || h < 0) { 
+		throw std::runtime_error("Invalid maze dimensions"); 
+	} // Maze dimensions can't be negative
 
 	std::unique_ptr<Maze> maze = std::make_unique<Maze>(w, h);
 
