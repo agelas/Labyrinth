@@ -6,12 +6,13 @@
 #include "maze.h"
 #include "entity.h"
 #include "position.h"
+#include "ui.h"
 
 class Maze;
 class Position;
 class Entity;
+class UI;
 // TODO:
-// class UI;
 // class GameRules;
 
 // Encapsulates the entirety of the game state and 
@@ -29,8 +30,8 @@ public:
 
 	void setMaze(std::unique_ptr<Maze> maze);
 	std::unique_ptr<Maze> getMaze();
-	// void setUI(UI *ui);
-	// UI* getUI();
+	void setUI(UI *ui);
+	UI* getUI();
 	// void setGameRules(GameRules *gameRules);
 	// GameRules* getGameRules();
 	void addEntity(Entity* entity);
