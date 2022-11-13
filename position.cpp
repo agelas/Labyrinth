@@ -37,7 +37,7 @@ int Position::getY() const {
 }
 
 // Return the Position that is displaced by moving 1 step in the specified direction.
-// Usefil for carrying out moves or evaluating hypothetical moves.
+// Useful for carrying out moves or evaluating hypothetical moves.
 Position Position::displace(Direction dir) const {
     switch (dir) {
     case Direction::UP:
@@ -63,6 +63,6 @@ int Position::distanceFrom(const Position& other) const {
 
 // Determine whether this Position is in bounds on a grid with specified width and height
 bool Position::inBounds(int width, int height) const {
-    return x >= 0 && x < width&& y >= 0 && y < height;
+    return x >= 0 && x < width && y >= 0 && y < height;
 }
 
