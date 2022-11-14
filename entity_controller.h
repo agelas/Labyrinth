@@ -2,7 +2,8 @@
 
 #include "position.h"
 
-// Forward declare Game and Entity
+class Game;
+class Entity;
 
 class EntityController {
 private:
@@ -12,7 +13,7 @@ private:
 public:
 	EntityController();
 
-	//virtual Direction getMoveDirection(Game* game, Entity* entity) = 0;
+	virtual Direction getMoveDirection(Game* game, Entity* entity) = 0;
 	virtual bool isUser() const = 0;
 
 	virtual ~EntityController();
