@@ -23,6 +23,8 @@ using EntityVec = std::vector<Entity*>;
 private:
 	std::unique_ptr<Maze> maze;
 	EntityVec evec;
+	UI* ui;
+	GameRules* gameRules;
 
 public:
 	Game();
