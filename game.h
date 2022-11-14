@@ -12,8 +12,7 @@ class Maze;
 class Position;
 class Entity;
 class UI;
-// TODO:
-// class GameRules;
+class GameRules;
 
 // Encapsulates the entirety of the game state and 
 // coordinates the overall gamplay.
@@ -32,8 +31,8 @@ public:
 	std::unique_ptr<Maze> getMaze();
 	void setUI(UI *ui);
 	UI* getUI();
-	// void setGameRules(GameRules *gameRules);
-	// GameRules* getGameRules();
+	void setGameRules(GameRules *gameRules);
+	GameRules* getGameRules();
 	void addEntity(Entity* entity);
 	Entity* getEntityAt(const Position& pos);
 	const EntityVec& getEntities() const;
