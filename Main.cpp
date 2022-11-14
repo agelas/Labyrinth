@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include "maze.h"
+#include "game.h"
+#include "text_ui.h"
+#include "maze_game_rules.h"
 
 int main(int argc, char *argv[]) {
 	const char* filename;
@@ -17,13 +19,12 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	std::unique_ptr<Maze> maze = Maze::read(in);
-	
-	std::cout << maze.get()->getHeight() << std::endl;
-	std::cout << maze.get()->getWidth() << std::endl;
+	Game* game = Game::loadGame(in);
+	game->setGameRules(new MazeGameRules());
+	game->setUI(new TextUI());
+	std::cout << "New Game Created" << std::endl;
 
-	std::cout << "made a maze" << std::endl;
-
-	maze.get()->print();
+	std::unique_ptr<Maze> m = game->getMaze();
+	m.get()->print();
 
 }
