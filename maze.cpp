@@ -29,6 +29,10 @@ bool Maze::inBounds(const Position& pos) const {
 }
 
 void Maze::setTile(const Position& pos, Tile* tile) {
+	/*
+		Set a Tile at the specified Position. Maze assumes
+		responsibility for deleting it. 
+	*/
 	grid[pos.getY() * width + pos.getX()] = tile;
 }
 
@@ -38,6 +42,10 @@ const Tile* Maze::getTile(const Position& pos) const {
 }
 
 std::unique_ptr<Maze> Maze::read(std::istream& in) {
+	/*
+		Read a description of a Maze from specified istream,
+		then create and return it.
+	*/
 	char t;
 	// First two ints read are the width and height of the maze
 	std::string line;

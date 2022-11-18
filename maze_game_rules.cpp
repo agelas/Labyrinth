@@ -90,6 +90,7 @@ GameResult MazeGameRules::checkGameResult(Game* game) const {
 			return GameResult::HERO_LOSES;
 		}
 	}
+	// If none of the previous conditions are met, then game is still ongoing
 	return GameResult::UNKNOWN;
 }
 
