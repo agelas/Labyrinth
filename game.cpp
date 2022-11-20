@@ -77,8 +77,8 @@ Game::EntityVec Game::getEntitiesWithProperty(char prop) const {
 	return evec_prop;
 }
 
-std::unique_ptr<Maze> Game::getMaze() {
-	return std::move(maze);
+Maze& Game::getMaze() {
+	return *maze;
 }
 
 UI* Game::getUI() {
@@ -91,20 +91,49 @@ GameRules* Game::getGameRules() {
 
 void Game::gameLoop() {
 	/*
-		TODO:
 		Let the Entity objects take turns in a round-robin
 		fashion until the GameRules object determines that
 		the hero has won or lost.
 	*/
-	return;
+
+	do {
+		for (int i = 0; i < (int)evec.size(); i++) {
+			if ((evec[i]->getController())->isUser()) {
+				ui->render(this);
+			}
+			takeTurn(evec[i]);
+			if (gameRules->checkGameResult(this) != GameResult::UNKNOWN) {
+				break;
+			}
+		}
+	} while (gameRules->checkGameResult(this) != GameResult::UNKNOWN);
+
+	// Check and print game result
+	std::string message;
+	if (gameRules->checkGameResult(this) == GameResult::HERO_WINS) {
+		message = ": Hero wins";
+	}
+	else {
+		message = ": Hero loses";
+	}
+	ui->displayMessage(message, true);
+	ui->render(this);
 }
 
 void Game::takeTurn(Entity* actor) {
-	/*
-		TODO: 
+	/* 
 		Let specified actor Entity take a turn.
 	*/
-	return;
+	Direction move = actor->getController()->getMoveDirection(this, actor);
+	Position p = (actor->getPosition()).displace(move);
+
+	// Check if entity is allowed to move in that direction
+	if (gameRules->allowMove(this, actor, actor->getPosition(), p)) {
+		gameRules->enactMove(this, actor, p);
+	}
+	else {
+		ui->displayMessage(": Illegal move", false);
+	}
 }
 
 Game* Game::loadGame(std::istream& in) {
@@ -113,7 +142,7 @@ Game* Game::loadGame(std::istream& in) {
 		and return the resulting Game object
 	*/
 	Game* game = new Game();
-	game->maze = Maze::read(in);
+	game->setMaze(Maze::read(in));
 
 	std::string entity_string;
 	std::string in_x; // String from maze file for x coord
@@ -137,6 +166,13 @@ Game* Game::loadGame(std::istream& in) {
 		newEntity->setProperties(entity_string.substr(2));
 
 		game->addEntity(newEntity);
+	}
+	EntityVec eVectorCheck = game->getEntities();
+	if (eVectorCheck.empty()) {
+		throw std::runtime_error("No Entities Created");
+	}
+	else {
+		std::cout << eVectorCheck.size() << std::endl;
 	}
 
 	return game;

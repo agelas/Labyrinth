@@ -86,7 +86,8 @@ std::unique_ptr<Maze> Maze::read(std::istream& in) {
 			maze->setTile(pos, tile);
 		}
 	}
-	return maze;
+
+	return std::move(maze);
 }
 
 void Maze::print() const {

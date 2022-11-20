@@ -6,13 +6,13 @@ MazeGameRules::~MazeGameRules() {}
 bool MazeGameRules::allowMove(Game* game, Entity* actor, const Position& source, const Position& dest) const{
 
 	// Do not allow a move that is not in the maze
-	if (!(dest.inBounds(game->getMaze()->getWidth(), game->getMaze()->getHeight()))) { return false; }
+	if (!(dest.inBounds(game->getMaze().getWidth(), game->getMaze().getHeight()))) { return false; }
 
 	// Do not allow a move that is more than one tile
 	if (source.distanceFrom(dest) > 1) { return false; }
 
 	// Do not allow a move onto a tile that blocks 
-	if (game->getMaze()->getTile(dest)->checkMoveOnto(actor, source, dest) == MoveResult::BLOCk) { return false; }
+	if (game->getMaze().getTile(dest)->checkMoveOnto(actor, source, dest) == MoveResult::BLOCk) { return false; }
 
 	Entity* entityDestination = game->getEntityAt(dest);
 
@@ -25,17 +25,17 @@ bool MazeGameRules::allowMove(Game* game, Entity* actor, const Position& source,
 		if (game->getEntityAt(checkPosition)) { return false; }
 
 		// Check if entity can push moveable entity onto a tile
-		if (game->getMaze()->getTile(checkPosition)->checkMoveOnto(entityDestination, dest, checkPosition) != MoveResult::ALLOW) {
+		if (game->getMaze().getTile(checkPosition)->checkMoveOnto(entityDestination, dest, checkPosition) != MoveResult::ALLOW) {
 			return false;
 		}
 
 		// Moveable entity can't be pushed onto goal
-		if (game->getMaze()->getTile(checkPosition)->isGoal()) {
+		if (game->getMaze().getTile(checkPosition)->isGoal()) {
 			return false;
 		}
 
 		// Cannot push movable entity out of the maze
-		if (!(checkPosition.inBounds(game->getMaze()->getWidth(), game->getMaze()->getHeight()))) {
+		if (!(checkPosition.inBounds(game->getMaze().getWidth(), game->getMaze().getHeight()))) {
 			return false;
 		}
 
@@ -80,7 +80,7 @@ GameResult MazeGameRules::checkGameResult(Game* game) const {
 		if (entityVec[i]->hasProperty('h')) { // Find all hero entities
 			p = entityVec[i]->getPosition();
 			// Check if hero is on goal
-			if (game->getMaze()->getTile(p)->isGoal()) {
+			if (game->getMaze().getTile(p)->isGoal()) {
 				return GameResult::HERO_WINS;
 			}
 		}

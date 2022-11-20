@@ -32,7 +32,7 @@ public:
 	Game();
 
 	void setMaze(std::unique_ptr<Maze> maze);
-	std::unique_ptr<Maze> getMaze();
+	Maze& getMaze();
 	void setUI(UI *ui);
 	UI* getUI();
 	void setGameRules(GameRules *gameRules);

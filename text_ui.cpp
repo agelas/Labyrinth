@@ -49,18 +49,18 @@ void TextUI::displayMessage(const std::string& msg, bool) {
 }
 
 void TextUI::render(Game* game) {
-	std::unique_ptr<Maze> m = game->getMaze();
+	Maze& m = game->getMaze();
 	Entity* e;
 
-	for (int i = 0; i < m->getHeight(); i++) {
-		for (int j = 0; j < m->getWidth(); j++) {
+	for (int i = 0; i < m.getHeight(); i++) {
+		for (int j = 0; j < m.getWidth(); j++) {
 			Position p = Position(j, i);
 			e = game->getEntityAt(p);
 			if (e) {
 				std::cout << e->getGlyph();
 			}
 			else {
-				std::cout << (m->getTile(p))->getGlyph();
+				std::cout << (m.getTile(p))->getGlyph();
 			}
 		}
 		std::cout << std::endl;
