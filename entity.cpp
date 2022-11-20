@@ -36,7 +36,7 @@ EntityController* Entity::getController() {
 }
 
 void Entity::setPosition(const Position& pos) {
-	this->position = position;
+	this->position = pos;
 }
 
 Position Entity::getPosition() const{

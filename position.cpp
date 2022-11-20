@@ -1,9 +1,9 @@
 #include "position.h"
 
 Position& Position::operator=(const Position& rhs) {
-    if (*this != rhs) {
-        x = rhs.x;
-        y = rhs.y;
+    if (this != &rhs) {
+       x = rhs.x;
+       y = rhs.y;
     }
     return *this;
 }

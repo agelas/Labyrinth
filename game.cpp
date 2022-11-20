@@ -167,12 +167,10 @@ Game* Game::loadGame(std::istream& in) {
 
 		game->addEntity(newEntity);
 	}
+
 	EntityVec eVectorCheck = game->getEntities();
 	if (eVectorCheck.empty()) {
 		throw std::runtime_error("No Entities Created");
-	}
-	else {
-		std::cout << eVectorCheck.size() << std::endl;
 	}
 
 	return game;
