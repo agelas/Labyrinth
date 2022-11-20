@@ -106,14 +106,14 @@ void Game::gameLoop() {
 				break;
 			}
 		}
-	} while (gameRules->checkGameResult(this) != GameResult::UNKNOWN);
+	} while (gameRules->checkGameResult(this) == GameResult::UNKNOWN);
 
 	// Check and print game result
 	std::string message;
 	if (gameRules->checkGameResult(this) == GameResult::HERO_WINS) {
 		message = ": Hero wins";
 	}
-	else {
+	else if (gameRules->checkGameResult(this) == GameResult::HERO_LOSES) {
 		message = ": Hero loses";
 	}
 	ui->displayMessage(message, true);
