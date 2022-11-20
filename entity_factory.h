@@ -1,5 +1,8 @@
 #pragma once
 // TODO: Include all the different controllable entities
+#include "ui_control.h"
+#include "simple_chaser.h" 
+
 class EntityController;
 
 class EntityControllerFactory {
