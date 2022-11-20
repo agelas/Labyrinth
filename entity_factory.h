@@ -1,4 +1,5 @@
 #pragma once
+// TODO: Include all the different controllable entities
 class EntityController;
 
 class EntityControllerFactory {
