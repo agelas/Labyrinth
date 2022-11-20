@@ -7,12 +7,14 @@
 #include "entity.h"
 #include "position.h"
 #include "ui.h"
+#include "entity_factory.h"
 
 class Maze;
 class Position;
 class Entity;
 class UI;
 class GameRules;
+class EntityControllerFactory;
 
 // Encapsulates the entirety of the game state and 
 // coordinates the overall gamplay.

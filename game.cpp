@@ -111,12 +111,33 @@ Game* Game::loadGame(std::istream& in) {
 	/*
 		Read initial Game data in from the specified istream,
 		and return the resulting Game object
-
-		TODO:
-		Deal with Entity construction
 	*/
 	Game* game = new Game();
 	game->maze = Maze::read(in);
+
+	std::string entity_string;
+	std::string in_x; // String from maze file for x coord
+	std::string in_y;
+	int x, y;
+
+	EntityControllerFactory* eCFactory;
+	eCFactory = EntityControllerFactory::getInstance();
+
+	while (in >> entity_string && in >> in_x && in >> in_y) {
+		x = std::stoi(in_x);
+		y = std::stoi(in_y);
+
+		// TODO: probably a check to make sure coordinates are valid
+
+		Entity* newEntity = new Entity();
+		newEntity->setController(eCFactory->createFromChar(entity_string[1]));
+		newEntity->setGlyph(entity_string.substr(0, 1));
+		Position p = Position(x, y);
+		newEntity->setPosition(p);
+		newEntity->setProperties(entity_string.substr(2));
+
+		game->addEntity(newEntity);
+	}
 
 	return game;
 }
