@@ -1,4 +1,4 @@
-#include "SimpleChaser.h"
+#include "simple_chaser.h"
 
 SimpleChaser::SimpleChaser() {}
 
