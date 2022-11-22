@@ -17,25 +17,39 @@ bool MazeGameRules::allowMove(Game* game, Entity* actor, const Position& source,
 	Entity* entityDestination = game->getEntityAt(dest);
 
 	if (entityDestination) {
+
+		// Allow minotaur to move onto hero
+		if (entityDestination->hasProperty('h') && actor->hasProperty('m') && !(entityDestination->hasProperty('v'))) {
+			return true;
+		}
 		// Can move onto entity as long as it's not moveable
-		if (!(entityDestination->hasProperty('v'))) { return false; }
+		if (!(entityDestination->hasProperty('v'))) { 
+			std::cout << "Trying to move onto unmovable" << std::endl;
+			return false; 
+		}
 		
 		// Can't push a moveable entity onto another moveable entity
 		const Position checkPosition = inanimateDestination(source, dest);
-		if (game->getEntityAt(checkPosition)) { return false; }
+		if (game->getEntityAt(checkPosition)) { 
+			std::cout << "Can't push 1" << std::endl;
+			return false; 
+		}
 
 		// Check if entity can push moveable entity onto a tile
 		if (game->getMaze().getTile(checkPosition)->checkMoveOnto(entityDestination, dest, checkPosition) != MoveResult::ALLOW) {
+			std::cout << "Can't push 2" << std::endl;
 			return false;
 		}
 
 		// Moveable entity can't be pushed onto goal
 		if (game->getMaze().getTile(checkPosition)->isGoal()) {
+			std::cout << "Can't push onto goal" << std::endl;
 			return false;
 		}
 
 		// Cannot push movable entity out of the maze
 		if (!(checkPosition.inBounds(game->getMaze().getWidth(), game->getMaze().getHeight()))) {
+			std::cout << "Can't push out of maze" << std::endl;
 			return false;
 		}
 
