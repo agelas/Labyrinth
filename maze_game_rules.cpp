@@ -22,6 +22,12 @@ bool MazeGameRules::allowMove(Game* game, Entity* actor, const Position& source,
 		if (entityDestination->hasProperty('h') && actor->hasProperty('m') && !(entityDestination->hasProperty('v'))) {
 			return true;
 		}
+
+		// Allow hero to move onto minotaur
+		if (entityDestination->hasProperty('m') && actor->hasProperty('h') && !(entityDestination->hasProperty('v'))) {
+			return true;
+		}
+		
 		// Can move onto entity as long as it's not moveable
 		if (!(entityDestination->hasProperty('v'))) { 
 			std::cout << "Trying to move onto unmovable" << std::endl;
