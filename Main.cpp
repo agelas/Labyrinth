@@ -23,8 +23,5 @@ int main(int argc, char *argv[]) {
 	game->setGameRules(new MazeGameRules());
 	game->setUI(new TextUI());
 	std::cout << "New Game Created" << std::endl;
-
-	std::unique_ptr<Maze> m = game->getMaze();
-	m.get()->print();
-
+	game->gameLoop();
 }

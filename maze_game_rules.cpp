@@ -18,6 +18,10 @@ bool MazeGameRules::allowMove(Game* game, Entity* actor, const Position& source,
 
 	if (entityDestination) {
 
+		if (entityDestination == actor) {
+			return true;
+		}
+
 		// Allow minotaur to move onto hero
 		if (entityDestination->hasProperty('h') && actor->hasProperty('m') && !(entityDestination->hasProperty('v'))) {
 			return true;
@@ -74,7 +78,7 @@ void MazeGameRules::enactMove(Game* game, Entity* actor, const Position& dest) c
 	// Check if there already is an entity at the position
 	if (entityDest) {
 		// Allow minotaur to move onto a position with hero
-		if (entityDest->hasProperty('m') && actor->hasProperty('h') && !(entityDest->hasProperty('v'))) {
+		if (entityDest->hasProperty('h') && actor->hasProperty('m') && !(entityDest->hasProperty('v'))) {
 			actor->setPosition(dest);
 		}
 		// Allow hero to move onto a position with minotaur
