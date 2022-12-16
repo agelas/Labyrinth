@@ -73,3 +73,52 @@ bool AStarChaser::checkMove(Game* game, std::vector<Position> pastPositions, con
 	}
 	return true;
 }
+
+void AStarChaser::pathExtension(Game* game, std::vector<Position> pastPositions, std::string path, Position curPos, const Position& heroPos, std::map<int, std::string>& pathMap, Entity* entity) {
+	/*
+	Recursively extends paths until all successful paths (paths that reach hero) are stored in the map.
+	If the current path's cost is larger than the smallest cost in the map, the path is ignored.
+	Paths are composed of chars representing one of the four directions that the minotaur is allowed to move.
+	*/
+	int cost = path.length() + curPos.distanceFrom(heroPos);
+	int maxSize = pathMap.begin()->first;
+	vector<Position> newPastPositions = pastPositions;
+	vector<Position> allMoves;
+	
+	if (cost >= maxSize) {
+		return;
+	}
+
+	if (curPos == heroPos) {
+		pathMap[cost] = path;
+		return;
+	}
+
+	newPastPositions.push_back(curPos);
+
+	//Get valid moves
+	Position right = curPos.displace(Direction::RIGHT);
+	allMoves.push_back(right);
+	Position left = curPos.displace(Direction::LEFT);
+	allMoves.push_back(left);
+	Position up = curPos.displace(Direction::UP);
+	allMoves.push_back(up);
+	Position down = curPos.displace(Direction::DOWN);
+	allMoves.push_back(down);
+
+	//Ddirections are in chars so we can add onto the path which is a string
+	std::vector<char> allDirections;
+	allDirections.push_back('r');
+	allDirections.push_back('l');
+	allDirections.push_back('u');
+	allDirections.push_back('d');
+
+	for (int i = 0; i < allMoves.size(); i++) {
+		if (checkMove(game, pastPositions, curPos, allMoves[i], entity)) {
+			string newPath = path;
+			newPath.push_back(allDirections[i]);
+			pathExtension(game, newPastPositions, newPath, allMoves[i], heroPos, pathMap, entity);
+		}
+	}
+	return;
+}
