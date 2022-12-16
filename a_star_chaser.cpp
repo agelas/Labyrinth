@@ -15,7 +15,7 @@ Direction AStarChaser::getMoveDirection(Game* game, Entity* entity) {
 	string path;
 
 	//The key is an int so we can automatically sort by ascending order.
-	//The key is is treated as the cost of the path.
+	//The key is treated as the cost of the path.
 	map<int, string>& pathMap = initial;
 
 	Position curPos = entity->getPosition();
@@ -48,4 +48,28 @@ Direction AStarChaser::getMoveDirection(Game* game, Entity* entity) {
 	default:
 		return Direction::NONE;
 	}
+}
+
+bool AStarChaser::isUser() const {
+	return false;
+}
+
+bool AStarChaser::checkMove(Game* game, std::vector<Position> pastPositions, const Position& source, const Position& hypotheticalPos, Entity* entity) {
+	/*
+	Determines if the hypotheical position that the minotaur wants to move to
+	is allowed, and if it's not already one that the minotaur has visited on
+	its path
+	*/
+
+	if (game->getGameRules()->allowMove(game, entity, source, hypotheticalPos)) {
+		for (int i = 0; i < pastPositions.size(); i++) {
+			if (pastPositions[i] == hypotheticalPos) {
+				return false; // Check if hypothetical poisition has already been visited
+			}
+		}
+	}
+	else {
+		return false;
+	}
+	return true;
 }
