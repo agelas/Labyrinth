@@ -4,14 +4,14 @@ Floor::Floor() {}
 
 Floor::~Floor() {}
 
-MoveResult Floor::checkMoveOnto(Entity* entity, const Position&, const Position&) const {
+MoveResult Floor::checkMoveOnto(Entity* entity, const Position&, const Position&) const noexcept {
 	return MoveResult::ALLOW;
 }
 
-bool Floor::isGoal() const {
+bool Floor::isGoal() const noexcept {
 	return false;
 }
 
-std::string Floor::getGlyph() const {
+std::string Floor::getGlyph() const noexcept {
 	return ".";
 }
