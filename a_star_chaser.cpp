@@ -96,7 +96,7 @@ void AStarChaser::pathExtension(Game* game, std::vector<Position> pastPositions,
 
 	newPastPositions.push_back(curPos);
 
-	//Get valid moves
+	// Get valid moves, order needs to follow class's allDirections vector
 	Position right = curPos.displace(Direction::RIGHT);
 	allMoves.push_back(right);
 	Position left = curPos.displace(Direction::LEFT);
@@ -105,13 +105,6 @@ void AStarChaser::pathExtension(Game* game, std::vector<Position> pastPositions,
 	allMoves.push_back(up);
 	Position down = curPos.displace(Direction::DOWN);
 	allMoves.push_back(down);
-
-	//Ddirections are in chars so we can add onto the path which is a string
-	std::vector<char> allDirections;
-	allDirections.push_back('r');
-	allDirections.push_back('l');
-	allDirections.push_back('u');
-	allDirections.push_back('d');
 
 	for (int i = 0; i < allMoves.size(); i++) {
 		if (checkMove(game, pastPositions, curPos, allMoves[i], entity)) {

@@ -11,6 +11,8 @@ private:
 	AStarChaser(const AStarChaser&);
 	AStarChaser& operator=(const AStarChaser&);
 
+	std::vector<char> allDirections = { 'r', 'l', 'u', 'd' };
+
 	void pathExtension(Game *game, std::vector<Position> pastPositions, std::string path, Position curPos, const Position& heroPos, std::map<int, std::string>& pathMap, Entity* entity);
 	bool checkMove(Game* game, std::vector<Position> pastPositions, const Position& source, const Position& hypotheticalPos, Entity* entity);
 
