@@ -13,9 +13,9 @@ private:
 public:
 	Goal();
 
-	virtual MoveResult checkMoveOnto(Entity* entity, const Position& fromPos, const Position& tilePos) const override;
-	virtual bool isGoal() const override;
-	virtual std::string getGlyph() const override;
+	virtual MoveResult checkMoveOnto(Entity* entity, const Position& fromPos, const Position& tilePos) const noexcept override;
+	virtual bool isGoal() const noexcept override;
+	virtual std::string getGlyph() const noexcept override;
 
 	virtual ~Goal();
 };
