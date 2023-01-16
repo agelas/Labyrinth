@@ -46,6 +46,7 @@ Direction AStarChaser::getMoveDirection(Game* game, Entity* entity) {
 	case 'r':
 		return Direction::RIGHT;
 	default:
+		[[unlikely]];
 		return Direction::NONE;
 	}
 }
