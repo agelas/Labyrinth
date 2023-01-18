@@ -20,5 +20,5 @@ public:
 	AStarChaser();
 	virtual ~AStarChaser();
 	virtual Direction getMoveDirection(Game* game, Entity* entity) override;
-	virtual bool isUser() const override;
+	virtual bool isUser() const noexcept override;
 };

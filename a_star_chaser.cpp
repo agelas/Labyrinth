@@ -51,7 +51,7 @@ Direction AStarChaser::getMoveDirection(Game* game, Entity* entity) {
 	}
 }
 
-bool AStarChaser::isUser() const {
+bool AStarChaser::isUser() const noexcept {
 	return false;
 }
 
@@ -65,7 +65,7 @@ bool AStarChaser::checkMove(Game* game, std::vector<Position> pastPositions, con
 	if (game->getGameRules()->allowMove(game, entity, source, hypotheticalPos)) {
 		for (int i = 0; i < pastPositions.size(); i++) {
 			if (pastPositions[i] == hypotheticalPos) {
-				return false; // Check if hypothetical poisition has already been visited
+				return false; // Check if hypothetical position has already been visited
 			}
 		}
 	}
@@ -108,6 +108,10 @@ void AStarChaser::pathExtension(Game* game, std::vector<Position> pastPositions,
 	allMoves.push_back(down);
 
 	for (int i = 0; i < allMoves.size(); i++) {
+		// Quasi-heuristic, chaser can beat player to goal and gatekeep
+		if (game->getMaze().getTile(curPos)->isGoal()) {
+			return;
+		}
 		if (checkMove(game, pastPositions, curPos, allMoves[i], entity)) {
 			string newPath = path;
 			newPath.push_back(allDirections[i]);
